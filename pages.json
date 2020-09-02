@@ -1,0 +1,23 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "车辆维修"
+			}
+		},
+		{
+			"path": "pages/index/maintainCarDetail",
+			"style": {
+				"navigationBarTitleText": "车辆维修"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "uniapp",
+		"navigationBarBackgroundColor": "#f4643e",
+		"backgroundColor": "#F8F8F8",
+		"navigationStyle": "default"
+	}
+}
