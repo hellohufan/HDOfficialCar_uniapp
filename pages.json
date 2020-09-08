@@ -1,13 +1,13 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-			"path": "pages/index/index",
+			"path": "pages/maintainCar/maintainCarList",
 			"style": {
 				"navigationBarTitleText": "车辆维修"
 			}
 		},
 		{
-			"path": "pages/index/maintainCarDetail",
+			"path": "pages/maintainCar/maintainCarDetail",
 			"style": {
 				"navigationBarTitleText": "车辆维修"
 			}
