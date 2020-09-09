@@ -40,7 +40,7 @@
 <script>
 	import uniLoadMore from '@/components/uni-load-more/uni-load-more.vue';
 	var dateUtils = require('../../common/util.js').dateUtils;
-	
+	import instance from '../../common/instance.js';
 	export default {
 		components: {
 			uniLoadMore
@@ -64,6 +64,7 @@
 			console.log("[Index]:onLoad");
 			this.adpid = this.$adpid;
 			this.getList();
+			
 		},
 		onPullDownRefresh() {
 			this.reload = true;
@@ -99,17 +100,29 @@
 					page: this.page,
 					rows: '5'
 				};
-				var serverUrl = 'http://gcb.fjhtxl.net:81/mywork/repairapprove/queryOrderPage.do';
+				var token = null;
+				document.addEventListener('plusready',function () {
+				    // 在这里调用plus api
+					var info = plus.runtime.arguments;
+					var cmd = JSON.parse(info);
+					token = cmd.value;
+					console.log("token = " + token);
+				},false);
+				
+				var serverUrl = instance.domain + 'mywork/repairapprove/queryOrderPage.do';
 				if (this.last_id) {
 					//说明已有数据，目前处于上拉加载
 					this.status = 'loading';
 					console.log(data);
 				}
+				if (token == null){
+					token = 'd_muarggMsmg0TC3ARQqfUFUpQ7Bi7PMjfSf070G_TECzA===@4BC445EB19EF498DA826D6CCF81282B8';
+				}
 				uni.request({
 					url: serverUrl,
 					header: {
-						ACCESS_TOKEN:'Kst98wdUcjug0XzyLhQBIWgquhjuJyxJIorGWdQ!_R4CjA===@36FED37257034F398FD7E2568CEF1AD3',
-						},
+						ACCESS_TOKEN: token,
+					},
 					data: data,
 					method: "GET",
 					success: data => {
@@ -119,7 +132,7 @@
 							uni.showToast({
 								title:"网络请求失败",
 								icon:"none"
-							})
+							});
 							return;
 						}
 						console.log("1111111");
@@ -153,22 +166,18 @@
 					url: '../maintainCar/maintainCarDetail?detailDate=' + encodeURIComponent(JSON.stringify(detail))
 				});
 			},
-			setTime: function(items) {
-				var newItems = [];
-				items.forEach(e => {
-					newItems.push({
-						author_name: e.author_name,
-						cover: e.cover,
-						id: e.id,
-						post_id: e.post_id,
-						published_at: dateUtils.format(e.published_at),
-						title: e.title
-					});
-				});
-				return newItems;
-			},
 			telephone: function(phone){
-				console.log(phone.phone);
+				var info = plus.runtime.arguments;
+				var cmd = JSON.parse(info);
+				console.log("info = " + info);
+				console.log("cmd = " + cmd);
+				console.log("phone = " + phone.phone);
+				console.log("token = " + cmd.value);
+				// var arguments = plus.runtime.arguments;
+				uni.showToast({
+					title:"argument",
+					icon:"none",
+				})
 			}
 		},
 		onBackPress() {
@@ -202,7 +211,7 @@
 	}
 	
 	view {
-		font-size: 35rpx;
+		font-size: 30rpx;
 		line-height: inherit;
 	}
 	.darkGray{
