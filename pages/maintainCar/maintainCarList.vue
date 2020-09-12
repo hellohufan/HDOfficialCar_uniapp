@@ -5,7 +5,7 @@
 		</view>
 		<view class="uni-list">
 			<block v-for="(value, index) in listData" :key="index">
-				<view class="uni-list-cell" @click="goDetail(value)"> 
+				<view class="uni-list-cell" @click="goDetail(value.id)"> 
 					<view class="contentView">
 						<view class="carNo">
 							<text>车牌号：{{value.carNo}}</text>
@@ -126,6 +126,7 @@
 					data: data,
 					method: "GET",
 					success: data => {
+						uni.stopPullDownRefresh();
 						console.log("data.data = " + data.data);
 						console.log("data.statusCode = " + data.statusCode)
 						if (data.statusCode != 200) {
@@ -152,18 +153,18 @@
 					}
 				});
 			},
-			goDetail: function(e) {
-				let detail = {
-					author_name: e.author_name,
-					cover: e.cover,
-					id: e.id,
-					post_id: e.post_id,
-					published_at: e.published_at,
-					title: e.title
-				};
-				console.log(detail)
+			goDetail: function(eid) {
+				// let detail = {
+				// 	author_name: e.author_name,
+				// 	cover: e.cover,
+				// 	id: e.id,
+				// 	post_id: e.post_id,
+				// 	published_at: e.published_at,
+				// 	title: e.title
+				// };
+				// console.log(detail)
 				uni.navigateTo({
-					url: '../maintainCar/maintainCarDetail?detailDate=' + encodeURIComponent(JSON.stringify(detail))
+					url: '../maintainCar/maintainCarDetail?eid=' + eid
 				});
 			},
 			telephone: function(phone){
